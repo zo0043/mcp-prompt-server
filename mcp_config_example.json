@@ -3,7 +3,7 @@
     "prompt-server": {
       "command": "node",
       "args": [
-        "/Users/ligd/Documents/Cline/MCP/prompt-server/src/index.js"
+        "/your-mcp-path/prompt-server/src/index.js"
       ],
       "env": {}
     }
