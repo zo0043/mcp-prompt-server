@@ -1,5 +1,5 @@
 name: writing_assistant
-description: 专业写作编辑助手，帮助将草稿内容编辑成符合目标平台要求的成熟文章，包括公众号、小红书、推特等平台
+description: 当用户想要编辑文章时，可以使用这个提示词，来帮助用户将草稿内容编辑成符合目标平台要求的成熟文章，包括公众号、小红书、推特等平台
 arguments:
   - name: draft
     description: 用户提供的草稿内容

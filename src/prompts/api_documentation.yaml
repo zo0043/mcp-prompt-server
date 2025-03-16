@@ -1,5 +1,5 @@
 name: api_documentation
-description: 根据代码生成详细的API文档
+description: 当用户想要生成API文档时，可以使用这个提示词，来帮助用户根据代码生成详细的API文档
 arguments:
   - name: language
     description: 编程语言

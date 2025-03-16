@@ -1,5 +1,5 @@
 name: code_refactoring
-description: 对代码进行重构以提高质量和可维护性
+description: 当用户想要重构代码时，可以使用这个提示词，来帮助用户提高代码质量和可维护性
 arguments:
   - name: language
     description: 编程语言

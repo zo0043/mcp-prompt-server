@@ -1,5 +1,5 @@
 name: prompt_template_generator
-description: 生成新的prompt模板文件
+description: 当用户想要生成新的prompt模板时，可以使用这个提示词，来帮助用户生成新的prompt模板文件
 arguments:
   - name: prompt_name
     description: 新prompt的名称（唯一标识符）
