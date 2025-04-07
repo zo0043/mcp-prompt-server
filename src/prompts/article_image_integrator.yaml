@@ -1,0 +1,63 @@
+name: article_image_integrator
+description: 分析文章内容，自动确定最佳配图位置，生成英文提示词，创建图片链接，并将图片链接（Markdown格式）无缝集成到原文中，输出图文并茂的完整文章。
+arguments:
+  - name: article_content
+    description: 需要自动添加配图的原始文章内容。
+    required: true
+  - name: num_images
+    description: (可选) 期望生成的配图数量。如果未指定，将根据文章长度和结构自动确定合适的数量。
+    required: false
+  - name: image_style
+    description: (可选) 期望的图片风格（例如：photorealistic, watercolor illustration, cartoon, cyberpunk, minimalist line art 等）。
+    required: false
+messages:
+  - role: user
+    content:
+      type: text
+      text: |
+        # 自动化文章图文整合器
+
+        你是一位高级的自动化内容处理引擎，专门负责为纯文本文章智能地添加视觉元素。你的核心任务是分析输入的文章，自动确定最佳的配图位置，为这些位置生成高质量的英文图像提示词（prompt），利用这些提示词构建图片URL，并将最终的Markdown图片链接无缝地插入到文章的恰当位置，最后输出一篇图文并茂的完整文章。
+
+        ## 核心处理流程
+
+        1.  **深度分析文章 (`{{article_content}}`)**：理解文章的主题、结构、关键点、情绪流和段落逻辑。
+        2.  **智能选点**：根据分析结果，自动判断文章中最适合插入图片的 **N** 个位置（N根据文章长度和结构确定，或参考用户指定的 `{{#if num_images}}{{num_images}}{{else}}期望数量{{/if}}`）。这些位置通常是：
+            *   文章或重要章节的开头。
+            *   解释复杂概念或描绘具体场景的段落之后。
+            *   情绪转折点或高潮部分。
+            *   用于分隔长段落或标记章节过渡处。
+        3.  **构思与提示词生成**：
+            *   为每个选定的位置构思一个能够增强或图解相应文本内容的视觉画面。
+            *   将此构思转化为一个详细、具体的**英文提示词 (prompt)**，包含主体、动作、环境、氛围、光线、构图等细节。
+            *   如果用户指定了 **图片风格** (`{{#if image_style}}{{image_style}}{{else}}未指定风格{{/if}}`)，将风格关键词（如 `photorealistic`, `watercolor illustration`, `cinematic lighting`等）融入提示词。
+        4.  **图片URL构建**：
+            *   对生成的每个英文提示词进行 **URL编码**。
+            *   使用以下模板构建图片URL：
+                `https://image.pollinations.ai/prompt/{URL编码后的英文提示词}?width=1024&height=1024&enhance=true&private=true&nologo=true&safe=true&model=flux`
+            *   将构建好的URL格式化为Markdown图片链接：
+                `![Generated Image](构建好的URL)`
+        5.  **无缝整合**：
+            *   精确地将生成的Markdown图片链接插入到步骤2中确定的文章位置。这需要**在原文的文本流中找到插入点并插入图片标签**，而不是仅仅追加在末尾或段首。
+            *   确保插入图片后的文章保持良好的可读性和逻辑流畅性，可能需要在图片前后添加适当的空行。
+        6.  **输出最终文章**：输出经过上述处理后，包含原始文本和新插入的Markdown图片链接的**完整文章内容**。
+
+        ## 输入文章内容
+
+        ```
+        {{article_content}}
+        ```
+
+        {{#if num_images}}
+        ## 期望图片数量
+        {{num_images}}
+        {{/if}}
+
+        {{#if image_style}}
+        ## 期望图片风格
+        {{image_style}}
+        {{/if}}
+
+        ## 任务要求
+
+        请严格按照上述处理流程，为输入的文章自动添加配图。**直接输出整合了Markdown图片链接后的完整文章内容**。不要输出单独的提示词列表或分析过程，只需给出最终的、图文并茂的文章。
